@@ -8,13 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _18177_18198_ProgramaProjeto3ED
+namespace apCaminhosMarte
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void TxtCaminhos_DoubleClick(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Buscar caminhos entre cidades selecionadas");
         }
     }
 }
