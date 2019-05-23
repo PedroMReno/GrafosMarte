@@ -66,7 +66,11 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
         return result;
     }
 
-    public void DesenharArvore(bool primeiraVez, NoArvore<Dado> atual,
+    public void DesenharArvore(Graphics g, int largura)
+    {
+        DesenharArvore(raiz, largura/2 , 0, Math.PI / 2, Math.PI / 2.5, 150 ,g);
+    }
+    private void DesenharArvore(NoArvore<Dado> atual,
                                int x, int y, double angulo, double incremento,
                                double comprimento, Graphics g)
     {
@@ -74,25 +78,23 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
 
         if (atual != null)
         {
-            Pen caneta = new Pen(Color.Red);
+            Pen caneta = new Pen(Color.DarkGray);
             xf = (int)Math.Round(x + Math.Cos(angulo) * comprimento);
             yf = (int)Math.Round(y + Math.Sin(angulo) * comprimento);
 
-            if (primeiraVez)
-                yf = 25;
-
             g.DrawLine(caneta, x, y, xf, yf);
-            DesenharArvore(false, atual.Esq, xf, yf, Math.PI / 2 + incremento,
+            DesenharArvore(atual.Esq, xf, yf, Math.PI / 2 + incremento,
                                              incremento * 0.60, comprimento * 0.8, g);
 
-            DesenharArvore(false, atual.Dir, xf, yf, Math.PI / 2 - incremento,
+            DesenharArvore(atual.Dir, xf, yf, Math.PI / 2 - incremento,
                                               incremento * 0.60, comprimento * 0.8, g);
 
-            SolidBrush preenchimento = new SolidBrush(Color.Blue);
+            SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
             g.FillEllipse(preenchimento, xf - 15, yf - 15, 30, 30);
             g.DrawString(Convert.ToString(raiz.Info), new Font("Courier New", 12),
-                          new SolidBrush(Color.Yellow), xf - 15, yf - 10);
+                          new SolidBrush(Color.Black), xf - 15, yf - 10);
         }
     }
 
+    
 }

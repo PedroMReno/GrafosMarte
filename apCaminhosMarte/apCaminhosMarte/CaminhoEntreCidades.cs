@@ -25,7 +25,7 @@ class CaminhoEntreCidades
         get => origem;
         set
         {
-            if (origem < 0)
+            if (value < 0)
                 throw new Exception("Identificação de origem inválida");
             origem = value;
         }
@@ -35,7 +35,7 @@ class CaminhoEntreCidades
         get => destino;
         set
         {
-            if (destino < 0)
+            if (value < 0)
                 throw new Exception("Identificação de destino inválida");
             destino = value;
         }
@@ -55,7 +55,7 @@ class CaminhoEntreCidades
         get => tempo;
         set
         {
-            if (tempo < 0)
+            if (value < 0)
                 throw new Exception("Tempo de viagem inválido");
             tempo = value;
         }
@@ -65,7 +65,7 @@ class CaminhoEntreCidades
         get => custo;
         set
         {
-            if (custo < 0)
+            if (value < 0)
                 throw new Exception("Custo de viagem inválido");
             custo = value;
         }
@@ -75,6 +75,7 @@ class CaminhoEntreCidades
     {
         Origem = Convert.ToInt32(linha.Substring(0, tamanhoOrigem));
         Destino = Convert.ToInt32(linha.Substring(inicioDestino, tamanhoDestino));
+        Distancia = Convert.ToInt32(linha.Substring(inicioDistancia, tamanhoDistancia));
         Tempo = Convert.ToInt32(linha.Substring(inicioTempo, tamanhoTempo));
         Custo = Convert.ToInt32(linha.Substring(inicioCusto, tamanhoCusto));
     }

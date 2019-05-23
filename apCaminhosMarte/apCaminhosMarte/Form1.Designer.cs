@@ -54,8 +54,8 @@
             this.lsbOrigem = new System.Windows.Forms.ListBox();
             this.pbMapa = new System.Windows.Forms.PictureBox();
             this.tpArvore = new System.Windows.Forms.TabPage();
-            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.pbArvore = new System.Windows.Forms.PictureBox();
+            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMelhorCaminho)).BeginInit();
@@ -335,11 +335,15 @@
             // 
             // pbArvore
             // 
+            this.pbArvore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbArvore.Location = new System.Drawing.Point(0, 0);
             this.pbArvore.Name = "pbArvore";
             this.pbArvore.Size = new System.Drawing.Size(1318, 522);
             this.pbArvore.TabIndex = 0;
             this.pbArvore.TabStop = false;
+            this.pbArvore.Paint += new System.Windows.Forms.PaintEventHandler(this.pbArvore_Paint);
             // 
             // Form1
             // 

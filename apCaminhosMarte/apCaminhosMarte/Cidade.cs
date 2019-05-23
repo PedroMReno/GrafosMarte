@@ -25,7 +25,7 @@ class Cidade : IComparable<Cidade>
         get => id;
         set
         {
-            if (id < 0)
+            if (value < 0)
                 throw new Exception("Id de cidade inválido");
             id = value;
         }
@@ -35,7 +35,7 @@ class Cidade : IComparable<Cidade>
         get => nome;
         set
         {
-            if (string.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(value))
                 throw new Exception("Nome de cidade inválido");
 
             nome = value;
@@ -46,7 +46,7 @@ class Cidade : IComparable<Cidade>
         get => x;
         set
         {
-            if (x < 0)
+            if (value < 0)
                 throw new Exception("Coodenada x de cidade inválida");
             x = value;
         }
@@ -56,7 +56,7 @@ class Cidade : IComparable<Cidade>
         get => y;
         set
         {
-            if (y < 0)
+            if (value < 0)
                 throw new Exception("Coordenada y de cidade inválida");
             y = value;
         }

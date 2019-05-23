@@ -106,10 +106,12 @@ namespace apCaminhosMarte
                 }
 
                 arq.Close();
-            }
+            }            
+        }
 
-            cidades.DesenharArvore()
-            
+        private void pbArvore_Paint(object sender, PaintEventArgs e)
+        {
+            cidades.DesenharArvore(e.Graphics, pbArvore.Width);
         }
     }
 }
