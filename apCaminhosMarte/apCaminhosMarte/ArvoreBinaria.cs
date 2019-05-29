@@ -5,6 +5,7 @@ using System.Drawing;
 class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métodos
 {
     private NoArvore<Dado> raiz, atual, antecessor;
+    private int filhos;
 
     public ArvoreBinaria()
     {
@@ -46,6 +47,7 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
             antecessor.Esq = novoNo;
         else
             antecessor.Dir = novoNo;
+        filhos++;
     }
     private int AlturaArvore(NoArvore<Dado> atual) //Perguntar depois sobre balanceada
     {
@@ -64,6 +66,11 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
             result = 0;
 
         return result;
+    }
+
+    public int QuantosFilhos()
+    {
+        return filhos;
     }
 
     public void DesenharArvore(Graphics g, int largura)
@@ -91,7 +98,7 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
 
             SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
             g.FillEllipse(preenchimento, xf - 15, yf - 15, 30, 30);
-            g.DrawString(Convert.ToString(raiz.Info), new Font("Courier New", 12),
+            g.DrawString((raiz.Info.ToString()).Trim(), new Font("Courier New", 12),
                           new SolidBrush(Color.Black), xf - 15, yf - 10);
         }
     }
