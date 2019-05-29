@@ -106,12 +106,24 @@ namespace apCaminhosMarte
                 }
 
                 arq.Close();
-            }            
+            }
+
+            pbMapa.Invalidate();
         }
 
         private void pbArvore_Paint(object sender, PaintEventArgs e)
         {
             cidades.DesenharArvore(e.Graphics, pbArvore.Width);
+        }
+
+        private void pbMapa_Paint(object sender, PaintEventArgs e)
+        {
+            var grafs = pbMapa.CreateGraphics();
+
+            grafs.Clear(Color.White);
+
+            SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
+            grafs.FillEllipse(preenchimento, 15, 13, 30, 30);
         }
     }
 }

@@ -75,8 +75,8 @@ class Cidade : IComparable<Cidade>
         return id.CompareTo(other.id);
     }
 
-    public string ToString()
+    public override string ToString()
     {
-        return (id.ToString() + " " + nome);
+        return ((id.ToString()).Trim() + " " + (nome).Trim());
     }
 }

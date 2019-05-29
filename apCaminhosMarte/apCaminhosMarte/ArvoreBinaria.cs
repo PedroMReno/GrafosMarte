@@ -98,7 +98,7 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
 
             SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
             g.FillEllipse(preenchimento, xf - 15, yf - 15, 30, 30);
-            g.DrawString((raiz.Info.ToString()).Trim(), new Font("Courier New", 12),
+            g.DrawString((atual.Info.ToString()).Trim(), new Font("Courier New", 10),
                           new SolidBrush(Color.Black), xf - 15, yf - 10);
         }
     }
