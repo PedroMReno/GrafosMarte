@@ -14,12 +14,11 @@ namespace apCaminhosMarte
     public partial class Form1 : Form
     {
         ArvoreBinaria<Cidade> cidades;
+        CaminhoEntreCidades[,] caminhos;
 
         public Form1()
         {
             InitializeComponent();
-            lsbOrigem.SelectedIndex = 0;
-            lsbDestino.SelectedIndex = 1;
         }
 
         public void AjustarGrid(DataGridView gv, int qtdL, int qtdC)
@@ -61,7 +60,6 @@ namespace apCaminhosMarte
         private void Form1_Load(object sender, EventArgs e)
         {
             cidades = new ArvoreBinaria<Cidade>();
-
             dlgAbrir.Title = "Ler cidades de: ";
 
             StreamReader arq;
@@ -72,7 +70,7 @@ namespace apCaminhosMarte
 
                 try
                 {
-                    while(!arq.EndOfStream)
+                    while (!arq.EndOfStream)
                     {
                         Cidade c = new Cidade(arq.ReadLine());
                         cidades.Incluir(c);
@@ -87,6 +85,7 @@ namespace apCaminhosMarte
             }
 
             dlgAbrir.Title = "Ler caminhos de: ";
+            caminhos = new CaminhoEntreCidades[cidades.QuantosFilhos, cidades.QuantosFilhos];
 
             if (dlgAbrir.ShowDialog() == DialogResult.OK) //Descobriremos o caminho do arquivo desejado
             {
@@ -97,7 +96,7 @@ namespace apCaminhosMarte
                     while (!arq.EndOfStream)
                     {
                         CaminhoEntreCidades c = new CaminhoEntreCidades(arq.ReadLine());
-                        //icluir caminhos na matriz
+                        caminhos[c.Destino, c.Origem] = c;
                     }
                 }
                 catch
@@ -108,7 +107,16 @@ namespace apCaminhosMarte
                 arq.Close();
             }
 
-            pbMapa.Invalidate();
+            cidades.ExecutaEmTodos((Cidade c) =>
+            {
+                string mostrante = c.Id + "- " + c.Nome;
+
+                lsbOrigem.Items.Add(mostrante);
+                lsbDestino.Items.Add(mostrante);
+            });
+
+            lsbOrigem.SelectedIndex = 0;
+            lsbDestino.SelectedIndex = 1;
         }
 
         private void pbArvore_Paint(object sender, PaintEventArgs e)
@@ -118,12 +126,26 @@ namespace apCaminhosMarte
 
         private void pbMapa_Paint(object sender, PaintEventArgs e)
         {
-            var grafs = pbMapa.CreateGraphics();
+            double redimenLargura = Math.Round((double)pbMapa.Width / 4096, 10);
+            double redimenAltura = Math.Round((double)pbMapa.Height / 2048, 10);
 
-            grafs.Clear(Color.White);
+            cidades.ExecutaEmTodos((Cidade c) =>
+            {
+                Graphics grafs = e.Graphics;
 
-            SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
-            grafs.FillEllipse(preenchimento, 15, 13, 30, 30);
+                int x = Convert.ToInt32(c.X * redimenLargura);
+                int y = Convert.ToInt32(c.Y * redimenAltura);
+
+                int tamanhoRedimen = Convert.ToInt32(35 * redimenLargura);
+
+                SolidBrush preenchimento = new SolidBrush(Color.Black);
+                grafs.FillEllipse(preenchimento, x, y, tamanhoRedimen, tamanhoRedimen);
+
+                string nome = c.ToString();
+
+                grafs.DrawString(nome, new Font("Courier New", tamanhoRedimen, FontStyle.Bold),
+                              new SolidBrush(Color.Black), x - (nome.Length * 4), y - 20);
+            });
         }
     }
 }

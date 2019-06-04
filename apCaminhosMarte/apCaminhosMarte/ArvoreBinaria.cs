@@ -2,7 +2,7 @@
 using System.Drawing;
 
 
-class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métodos
+class ArvoreBinaria<Dado> where Dado : IComparable<Dado>, IParaArvore //Pode ter menos métodos
 {
     private NoArvore<Dado> raiz, atual, antecessor;
     private int filhos;
@@ -68,9 +68,9 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
         return result;
     }
 
-    public int QuantosFilhos()
+    public int QuantosFilhos
     {
-        return filhos;
+        get => filhos;
     }
 
     public void DesenharArvore(Graphics g, int largura)
@@ -91,17 +91,30 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado> //POde ter menos métod
 
             g.DrawLine(caneta, x, y, xf, yf);
             DesenharArvore(atual.Esq, xf, yf, Math.PI / 2 + incremento,
-                                             incremento * 0.60, comprimento * 0.8, g);
+                                             incremento * 0.90, comprimento * 0.8, g);
 
             DesenharArvore(atual.Dir, xf, yf, Math.PI / 2 - incremento,
-                                              incremento * 0.60, comprimento * 0.8, g);
+                                              incremento * 0.90, comprimento * 0.8, g);
 
             SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
             g.FillEllipse(preenchimento, xf - 15, yf - 15, 30, 30);
-            g.DrawString((atual.Info.ToString()).Trim(), new Font("Courier New", 10),
-                          new SolidBrush(Color.Black), xf - 15, yf - 10);
+            g.DrawString((atual.Info.ParaArvore()), new Font("Courier New", 10),
+                          new SolidBrush(Color.Black), xf - 10, yf - 7);
         }
     }
 
-    
+    public void ExecutaEmTodos(Action<Dado> metodo)
+    {
+        ExecutaEmTodos(raiz, metodo);
+    }
+
+    private void ExecutaEmTodos(NoArvore<Dado> atual, Action<Dado> metodo)
+    {
+        if (atual != null)
+        {
+            ExecutaEmTodos(atual.Esq, metodo);
+            metodo(atual.Info);
+            ExecutaEmTodos(atual.Dir, metodo);
+        }
+    }
 }

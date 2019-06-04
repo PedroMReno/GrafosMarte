@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class Cidade : IComparable<Cidade>
+class Cidade : IComparable<Cidade>, IParaArvore
 {
     int id, x, y;
     string nome;
@@ -32,7 +32,7 @@ class Cidade : IComparable<Cidade>
     }
     public string Nome
     {
-        get => nome;
+        get => nome.Trim();
         set
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -77,6 +77,11 @@ class Cidade : IComparable<Cidade>
 
     public override string ToString()
     {
-        return ((id.ToString()).Trim() + " " + (nome).Trim());
+        return Nome;
+    }
+
+    public string ParaArvore()
+    {
+        return (id.ToString() + "\n" + Nome);
     }
 }

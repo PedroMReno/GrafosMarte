@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpRotas = new System.Windows.Forms.TabPage();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -266,14 +267,6 @@
             this.lsbDestino.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lsbDestino.FormattingEnabled = true;
             this.lsbDestino.ItemHeight = 16;
-            this.lsbDestino.Items.AddRange(new object[] {
-            "  0 - Acheron          ",
-            "  1 - Arena           ",
-            "  2 - Arrakeen       ",
-            "  3 - Bakhuysen       ",
-            "  4 - Bradbury ",
-            "  5 - Burroughs       ",
-            "  6 - Cairo            "});
             this.lsbDestino.Location = new System.Drawing.Point(1038, 129);
             this.lsbDestino.Name = "lsbDestino";
             this.lsbDestino.Size = new System.Drawing.Size(177, 84);
@@ -295,14 +288,6 @@
             this.lsbOrigem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lsbOrigem.FormattingEnabled = true;
             this.lsbOrigem.ItemHeight = 16;
-            this.lsbOrigem.Items.AddRange(new object[] {
-            "  0 - Acheron          ",
-            "  1 - Arena           ",
-            "  2 - Arrakeen       ",
-            "  3 - Bakhuysen       ",
-            "  4 - Bradbury ",
-            "  5 - Burroughs       ",
-            "  6 - Cairo            "});
             this.lsbOrigem.Location = new System.Drawing.Point(1038, 25);
             this.lsbOrigem.Name = "lsbOrigem";
             this.lsbOrigem.Size = new System.Drawing.Size(177, 84);
@@ -313,6 +298,7 @@
             this.pbMapa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbMapa.Image = ((System.Drawing.Image)(resources.GetObject("pbMapa.Image")));
             this.pbMapa.Location = new System.Drawing.Point(7, 7);
             this.pbMapa.Name = "pbMapa";
             this.pbMapa.Size = new System.Drawing.Size(1024, 512);
@@ -351,7 +337,7 @@
             this.ClientSize = new System.Drawing.Size(1329, 554);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Projeto 3 - busca de caminhos entre cidades";
+            this.Text = "Projeto III - busca de caminhos entre cidades";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tpRotas.ResumeLayout(false);
