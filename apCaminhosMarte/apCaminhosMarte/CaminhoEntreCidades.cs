@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class CaminhoEntreCidades
+class CaminhoEntreCidades : IComparable<CaminhoEntreCidades>
 {
     int origem, destino, distancia, tempo, custo;
 
@@ -78,5 +78,10 @@ class CaminhoEntreCidades
         Distancia = Convert.ToInt32(linha.Substring(inicioDistancia, tamanhoDistancia));
         Tempo = Convert.ToInt32(linha.Substring(inicioTempo, tamanhoTempo));
         Custo = Convert.ToInt32(linha.Substring(inicioCusto, tamanhoCusto));
+    }
+
+    public int CompareTo(CaminhoEntreCidades other) // passivel a mudancas
+    {
+        return origem.CompareTo(other.origem);
     }
 }

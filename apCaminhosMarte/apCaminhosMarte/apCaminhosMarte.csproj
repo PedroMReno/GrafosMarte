@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArvoreBinaria.cs" />
+    <Compile Include="CalculadoraDeRotas.cs" />
     <Compile Include="CaminhoEntreCidades.cs" />
     <Compile Include="Cidade.cs" />
     <Compile Include="Form1.cs">
@@ -57,7 +58,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IParaArvore.cs" />
+    <Compile Include="IStack.cs" />
     <Compile Include="NoArvore.cs" />
+    <Compile Include="NoLista.cs" />
+    <Compile Include="PilhaLista.cs" />
+    <Compile Include="PilhaVaziaException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

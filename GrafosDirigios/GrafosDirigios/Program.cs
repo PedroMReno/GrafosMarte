@@ -12,18 +12,7 @@ class Program
         PilhaLista<Movimento> pilha = new PilhaLista<Movimento>();
         List<int> todosAndados = new List<int>();
         bool[] passouCidade = { false, false, false, false, false, false, false, false, false, false, false };
-        int[,] cidades = new int[, ] { { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, 100, 507, -1, -1, 230, -1, 180, -1, -1 },
-                                       { -1, 110, -1, 204, -1, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, 120, -1, 97, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, 302, -1, -1, -1, 92, -1, -1, -1, -1 },
-                                       { -1, 88, 150, -1, -1, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, -1, -1, 105, 113, -1, -1, -1, -1, 50 },
-                                       { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                                       { -1, -1, -1, -1, -1, -1, -1, -1, 74, 485, -1 }};
-        int cidadeAtual = cidadeInicial;
+
         int saidaAtual = 0;
 
         while (!(cidadeAtual == cidadeInicial && saidaAtual == maxCidade))
