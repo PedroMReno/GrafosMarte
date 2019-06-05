@@ -16,6 +16,9 @@ namespace apCaminhosMarte
         ArvoreBinaria<Cidade> cidades;
         CaminhoEntreCidades[,] caminhos;
 
+        SolidBrush preenchimento = new SolidBrush(Color.Black);
+        Pen caneta = new Pen(Color.DarkGray);
+
         public Form1()
         {
             InitializeComponent();
@@ -115,6 +118,7 @@ namespace apCaminhosMarte
                 lsbDestino.Items.Add(mostrante);
             });
 
+            // coloca os selecionados do ListBox em duas cidades diferentes
             lsbOrigem.SelectedIndex = 0;
             lsbDestino.SelectedIndex = 1;
         }
@@ -138,7 +142,6 @@ namespace apCaminhosMarte
 
                 int tamanhoRedimen = Convert.ToInt32(35 * redimenLargura);
 
-                SolidBrush preenchimento = new SolidBrush(Color.Black);
                 grafs.FillEllipse(preenchimento, x, y, tamanhoRedimen, tamanhoRedimen);
 
                 string nome = c.ToString();
@@ -147,5 +150,10 @@ namespace apCaminhosMarte
                               new SolidBrush(Color.Black), x - (nome.Length * 4), y - 20);
             });
         }
+
+        //private void LigaPontos()
+        //{
+        //    Graphics.DrawLine(caneta, x, y, xf, yf);
+        //} 
     }
 }
