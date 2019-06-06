@@ -75,7 +75,7 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado>, IParaArvore //Pode ter
 
     public void DesenharArvore(Graphics g, int largura)
     {
-        DesenharArvore(raiz, largura/2 , 0, Math.PI / 2, Math.PI / 2.5, 150 ,g);
+        DesenharArvore(raiz, largura/2 , 0, Math.PI / 2, Math.PI / 2.5, 300, g);
     }
     private void DesenharArvore(NoArvore<Dado> atual,
                                int x, int y, double angulo, double incremento,
@@ -87,19 +87,23 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado>, IParaArvore //Pode ter
         {
             Pen caneta = new Pen(Color.DarkGray);
             xf = (int)Math.Round(x + Math.Cos(angulo) * comprimento);
-            yf = (int)Math.Round(y + Math.Sin(angulo) * comprimento);
+
+            if (y != 0)
+                yf = (int)Math.Round(y + Math.Sin(angulo) * comprimento);
+            else
+                yf = 30;
 
             g.DrawLine(caneta, x, y, xf, yf);
             DesenharArvore(atual.Esq, xf, yf, Math.PI / 2 + incremento,
-                                             incremento * 0.90, comprimento * 0.8, g);
+                                             incremento * 0.60, comprimento * 0.7, g);
 
             DesenharArvore(atual.Dir, xf, yf, Math.PI / 2 - incremento,
-                                              incremento * 0.90, comprimento * 0.8, g);
+                                              incremento * 0.60, comprimento * 0.7, g);
 
             SolidBrush preenchimento = new SolidBrush(Color.BlueViolet);
             g.FillEllipse(preenchimento, xf - 15, yf - 15, 30, 30);
             g.DrawString((atual.Info.ParaArvore()), new Font("Courier New", 10),
-                          new SolidBrush(Color.Black), xf - 10, yf - 7);
+                          new SolidBrush(Color.Black), xf - atual.Info.ParaArvore().Length * 10 / 4, yf - 7);
         }
     }
 

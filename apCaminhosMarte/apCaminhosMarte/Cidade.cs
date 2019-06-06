@@ -82,6 +82,8 @@ class Cidade : IComparable<Cidade>, IParaArvore
 
     public string ParaArvore()
     {
-        return (id.ToString() + "\n" + Nome);
+        int espaco = (Nome.Length / 2) + 1;
+
+        return (id.ToString().PadLeft(espaco, ' ') + "\n" + Nome);
     }
 }
