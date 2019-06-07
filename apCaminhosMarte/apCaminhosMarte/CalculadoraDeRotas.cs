@@ -9,8 +9,6 @@ class CalculadoraDeRotas
 {
     private int qtdCidades;
 
-    List<int> todosAndados = new List<int>(); //
-
     CaminhoEntreCidades[,] cidades;
 
     //construtor da classe
@@ -20,12 +18,13 @@ class CalculadoraDeRotas
         this.cidades = cidades;
     }
 
-    public void Calcular(int origem, int destino)
+    public List<List<CaminhoEntreCidades>> Calcular(int origem, int destino)
     {
+        List<List<CaminhoEntreCidades>> ret = new List<List<CaminhoEntreCidades>>();
         int cidadeAtual = origem;
         int saidaAtual = 0;
 
-        bool[] passouCidade = { false, false, false, false, false, false, false, false, false, false, false }; // mudar
+        bool[] passouCidade = new bool[qtdCidades];
 
         PilhaLista<CaminhoEntreCidades> pilha = new PilhaLista<CaminhoEntreCidades>();
 
@@ -35,7 +34,7 @@ class CalculadoraDeRotas
             {
                 while (saidaAtual < qtdCidades)
                 {
-                    if (passouCidade[saidaAtual] == false && cidades[cidadeAtual, saidaAtual] != null)
+                    if (passouCidade[saidaAtual] == false && cidades[saidaAtual, cidadeAtual] != null)
                         break;
 
                     saidaAtual++;
@@ -54,28 +53,19 @@ class CalculadoraDeRotas
                 if (cidadeAtual == destino)
                 {
                     PilhaLista<CaminhoEntreCidades> inver = new PilhaLista<CaminhoEntreCidades>();
-                    inver.Empilhar(cidades[saidaAtual, cidadeAtual]);
+                    List<CaminhoEntreCidades> nova = new List<CaminhoEntreCidades>();
 
                     while (!pilha.EstaVazia())
                         inver.Empilhar(pilha.Desempilhar());
 
-                    int totalAndado = 0;
-
-                    //Write("Caminho encontrado: ");
-
                     while (!inver.EstaVazia())
                     {
                         CaminhoEntreCidades cid = inver.Desempilhar();
-                        //totalAndado += cid.Valor;
-                        //Write(cid + "; ");
                         pilha.Empilhar(cid);
+                        nova.Add(cid);
                     }
 
-                    //Write("Total andado: " + totalAndado);
-                    //WriteLine();
-
-                    todosAndados.Add(totalAndado);
-                    pilha.Desempilhar();
+                    ret.Add(nova);
                 }
 
                 passouCidade[cidadeAtual] = false;
@@ -85,21 +75,6 @@ class CalculadoraDeRotas
             }
         }
 
-        int menor = 0;
-        int maior = 0;
-
-        for (int i = 0; i < todosAndados.Count; i++)
-        {
-            if (todosAndados[i] < todosAndados[menor])
-                menor = i;
-
-            if (todosAndados[i] > todosAndados[maior])
-                maior = 1;
-        }
-
-        //WriteLine("Menor caminho: " + (menor + 1));
-        //WriteLine("Maior caminho: " + (maior + 1));
-
-        //ReadLine();
+        return ret;
     }
 }

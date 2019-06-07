@@ -15,6 +15,15 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado>, IParaArvore //Pode ter
     {
         get => AlturaArvore(raiz);
     }
+    public Dado Buscar(Dado modelo)
+    {
+        Dado ret = default(Dado);
+
+        if (ExisteDado(modelo))
+            return atual.Info;
+
+        return ret;
+    }
     public bool ExisteDado(Dado procurado)
     {
         antecessor = null;

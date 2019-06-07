@@ -69,6 +69,14 @@ class Cidade : IComparable<Cidade>, IParaArvore
         X = Convert.ToInt32(linha.Substring(inicioX, tamanhoX));
         Y = Convert.ToInt32(linha.Substring(inicioY, tamanhoY));
     }
+
+    public Cidade(int id)
+    {
+        Id = id;
+        nome = "";
+        x = 0;
+        y = 0;
+    }
     
     public int CompareTo(Cidade other)
     {
