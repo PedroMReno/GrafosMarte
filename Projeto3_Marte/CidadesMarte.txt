@@ -16,7 +16,7 @@
  13Moria           3688 1453
  15Odessa          2593 1383 
  16Perseverança    2725 1675
- 20Temperança      2103 1389
+ 20Temperança      3103 1389
  18Senzeni Na       775 1357
  19Sheffield        651  939
  21Tharsis          531  809
