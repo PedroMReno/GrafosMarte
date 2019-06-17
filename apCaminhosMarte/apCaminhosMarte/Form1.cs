@@ -34,40 +34,39 @@ namespace apCaminhosMarte
             else
             {
                 List<List<CaminhoEntreCidades>> rotas = calc.Calcular(lsbOrigem.SelectedIndex, lsbDestino.SelectedIndex);
-                List<CaminhoEntreCidades> melhorCaminho = new List<CaminhoEntreCidades>();
                 rotaSelecionada = new List<Cidade>();
-                dgvCaminhos.RowCount = 0;
-                dgvCaminhos.ColumnCount = 0;
-                int menor = int.MaxValue;
 
-                foreach (List<CaminhoEntreCidades> l in rotas)
+                if (rotas.Count > 0)
                 {
-                    dgvCaminhos.RowCount++;
-                    int andado = 0, colunaAtual = 0;
-
-                    if (l.Count() + 1 > dgvCaminhos.ColumnCount)
-                        dgvCaminhos.ColumnCount = l.Count() + 1;
-
-                    foreach(CaminhoEntreCidades dado in l)
-                    {
-                        andado += dado.Distancia;
-                        dgvCaminhos[colunaAtual++, dgvCaminhos.RowCount - 1].Value = cidades.Buscar(new Cidade(dado.Origem)).ToString();
-                    }
-
-                    dgvCaminhos[colunaAtual++, dgvCaminhos.RowCount - 1].Value = cidades.Buscar(new Cidade(lsbDestino.SelectedIndex)).ToString();
-
-
-                    if (andado < menor)
-                    {
-                        menor = andado;
-                        melhorCaminho = l;
-                    }
-                }
-
-                if (melhorCaminho.Count > 0)
-                {
+                    List<CaminhoEntreCidades> melhorCaminho = new List<CaminhoEntreCidades>();
+                    dgvCaminhos.RowCount = 0;
+                    dgvCaminhos.ColumnCount = 0;
                     dgvMelhorCaminho.ColumnCount = 1;
                     dgvMelhorCaminho.RowCount = 1;
+                    int menor = int.MaxValue;
+
+                    foreach (List<CaminhoEntreCidades> l in rotas)
+                    {
+                        dgvCaminhos.RowCount++;
+                        int andado = 0, colunaAtual = 0;
+
+                        if (l.Count() + 1 > dgvCaminhos.ColumnCount)
+                            dgvCaminhos.ColumnCount = l.Count() + 1;
+
+                        foreach (CaminhoEntreCidades dado in l)
+                        {
+                            andado += dado.Distancia;
+                            dgvCaminhos[colunaAtual++, dgvCaminhos.RowCount - 1].Value = cidades.Buscar(new Cidade(dado.Origem)).ToString();
+                        }
+
+                        dgvCaminhos[colunaAtual++, dgvCaminhos.RowCount - 1].Value = cidades.Buscar(new Cidade(lsbDestino.SelectedIndex)).ToString();
+
+                        if (andado < menor)
+                        {
+                            menor = andado;
+                            melhorCaminho = l;
+                        }
+                    }
 
                     foreach (CaminhoEntreCidades dado in melhorCaminho)
                     {
@@ -77,7 +76,7 @@ namespace apCaminhosMarte
                     }
 
                     dgvMelhorCaminho[dgvMelhorCaminho.ColumnCount - 1, 0].Value = cidades.Buscar(new Cidade(lsbDestino.SelectedIndex)).ToString();
-                    ParaMostrarMelhorCaminho();
+                    GerarListaParaMostrar(dgvMelhorCaminho, 0); //Mostraremos o melhor caminho como padrão
                 }
                 else
                 {
@@ -99,14 +98,17 @@ namespace apCaminhosMarte
 
                 try
                 {
-                    while (!arq.EndOfStream)
+                    if (!ehCidade)
                     {
-                        if (!ehCidade)
+                        while (!arq.EndOfStream)
                         {
                             CaminhoEntreCidades c = new CaminhoEntreCidades(arq.ReadLine());
                             caminhos[c.Destino, c.Origem] = c;
                         }
-                        else
+                    }
+                    else
+                    {
+                        while (!arq.EndOfStream)
                         {
                             Cidade c = new Cidade(arq.ReadLine());
                             cidades.Incluir(c);
@@ -161,78 +163,72 @@ namespace apCaminhosMarte
             double redimenLargura = Math.Round((double)pbMapa.Width / 4096, 10);
             double redimenAltura = Math.Round((double)pbMapa.Height / 2048, 10);
             Graphics grafs = e.Graphics;
-            int tamanhoRedimen = Convert.ToInt32(35 * redimenLargura);
+            int tamanhoEsfera = Convert.ToInt32(35 * redimenLargura);
 
             cidades.ExecutaEmTodos((Cidade c) =>
             {
                 int x = Convert.ToInt32(c.X * redimenLargura);
                 int y = Convert.ToInt32(c.Y * redimenAltura);
 
-                grafs.FillEllipse(preenchimento, x, y, tamanhoRedimen, tamanhoRedimen);
+                grafs.FillEllipse(preenchimento, x, y, tamanhoEsfera, tamanhoEsfera);
 
                 string nome = c.Nome;
 
-                grafs.DrawString(nome, new Font("Courier New", tamanhoRedimen, FontStyle.Bold),
+                grafs.DrawString(nome, new Font("Courier New", tamanhoEsfera, FontStyle.Bold),
                               new SolidBrush(Color.Black), x - (nome.Length * 4), y - 20);
             });
+
+            int centroPonto = tamanhoEsfera / 2;
+            void DesenharLinha(int xIni, int yIni, int xFim, int yFim)
+            {
+                grafs.DrawLine(caneta, Convert.ToInt32(xIni * redimenLargura) + centroPonto, Convert.ToInt32(yIni * redimenAltura) + centroPonto,
+                        Convert.ToInt32(xFim * redimenLargura) + centroPonto, Convert.ToInt32(yFim * redimenAltura) + centroPonto);
+            }
 
             for (int i = 0; i < rotaSelecionada.Count - 1; i++)
             {
                 Cidade origem = rotaSelecionada[i];
                 Cidade destino = rotaSelecionada[i + 1];
 
-                if((origem.Nome == "Arrakeen" || origem.Nome == "Senzeni Na") && destino.Nome == "Gondor")
+                if ((origem.Nome == "Arrakeen" || origem.Nome == "Senzeni Na") && destino.Nome == "Gondor") //Dois casos especiais
                 {
                     int yNovo = 0;
 
                     if (origem.Nome == "Arrakeen")
                         yNovo = 1000;
-                    else
+                    else //Se não é Arrakeen, logo deve ser Senzeni Na
                         yNovo = 1350;
 
-                    grafs.DrawLine(caneta, Convert.ToInt32(origem.X * redimenLargura) + tamanhoRedimen / 2, Convert.ToInt32(origem.Y * redimenAltura) + tamanhoRedimen / 2,
-                        Convert.ToInt32(-50 * redimenLargura) + tamanhoRedimen / 2, Convert.ToInt32(yNovo * redimenAltura) + tamanhoRedimen / 2);
-
-                    grafs.DrawLine(caneta, Convert.ToInt32(4096 * redimenLargura) + tamanhoRedimen / 2, Convert.ToInt32(yNovo * redimenAltura) + tamanhoRedimen / 2,
-                        Convert.ToInt32(destino.X * redimenLargura) + tamanhoRedimen / 2, Convert.ToInt32(destino.Y * redimenAltura) + tamanhoRedimen / 2);
+                    DesenharLinha(origem.X, origem.Y, -50, yNovo);
+                    DesenharLinha(4096, yNovo, destino.X, destino.Y);
                 }
                 else
-                    grafs.DrawLine(caneta, Convert.ToInt32(origem.X * redimenLargura) + tamanhoRedimen/2, Convert.ToInt32(origem.Y * redimenAltura) + tamanhoRedimen / 2,
-                        Convert.ToInt32(destino.X * redimenLargura) + tamanhoRedimen / 2, Convert.ToInt32(destino.Y * redimenAltura) + tamanhoRedimen / 2);
+                    DesenharLinha(origem.X, origem.Y, destino.X, destino.Y);
             }
         }
 
         private void dgvCaminhos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            rotaSelecionada = new List<Cidade>();
-
-            for (int i = 0; i < dgvCaminhos.ColumnCount; i++)
-            {
-                if (dgvCaminhos[i, e.RowIndex].Value == null)
-                    break;
-
-                string mostrando = dgvCaminhos[i, e.RowIndex].Value.ToString();
-                Cidade busca = new Cidade(int.Parse(mostrando.Substring(0, mostrando.IndexOf('-'))));
-                Cidade lida = cidades.Buscar(busca);
-                rotaSelecionada.Add(lida);
-            }
-
+            GerarListaParaMostrar(dgvCaminhos, e.RowIndex);
             pbMapa.Invalidate();
         }
 
         private void dgvMelhorCaminho_Click(object sender, EventArgs e)
         {
-            ParaMostrarMelhorCaminho();
+            GerarListaParaMostrar(dgvMelhorCaminho, 0); //0 pois só haverá uma linha
             pbMapa.Invalidate();
         }
 
-        private void ParaMostrarMelhorCaminho()
+        private void GerarListaParaMostrar(DataGridView dgv, int linha)
         {
             rotaSelecionada = new List<Cidade>();
 
-            for (int i = 0; i < dgvMelhorCaminho.ColumnCount; i++)
+            for (int i = 0; i < dgv.ColumnCount; i++)
             {
-                string mostrando = dgvMelhorCaminho[i, 0].Value.ToString();
+                if (dgv[i, linha].Value == null)
+                    break;
+
+                string mostrando = dgv[i, linha].Value.ToString();
                 Cidade busca = new Cidade(int.Parse(mostrando.Substring(0, mostrando.IndexOf('-'))));
                 Cidade lida = cidades.Buscar(busca);
                 rotaSelecionada.Add(lida);

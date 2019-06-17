@@ -92,7 +92,7 @@
             this.tpRotas.Controls.Add(this.pbMapa);
             this.tpRotas.Location = new System.Drawing.Point(4, 22);
             this.tpRotas.Name = "tpRotas";
-            this.tpRotas.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRotas.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tpRotas.Size = new System.Drawing.Size(1318, 525);
             this.tpRotas.TabIndex = 0;
             this.tpRotas.Text = "Rotas entre cidades";
@@ -283,7 +283,7 @@
             this.lsbDestino.ItemHeight = 16;
             this.lsbDestino.Location = new System.Drawing.Point(1038, 129);
             this.lsbDestino.Name = "lsbDestino";
-            this.lsbDestino.Size = new System.Drawing.Size(177, 84);
+            this.lsbDestino.Size = new System.Drawing.Size(177, 68);
             this.lsbDestino.TabIndex = 3;
             // 
             // label1
@@ -304,7 +304,7 @@
             this.lsbOrigem.ItemHeight = 16;
             this.lsbOrigem.Location = new System.Drawing.Point(1038, 25);
             this.lsbOrigem.Name = "lsbOrigem";
-            this.lsbOrigem.Size = new System.Drawing.Size(177, 84);
+            this.lsbOrigem.Size = new System.Drawing.Size(177, 68);
             this.lsbOrigem.TabIndex = 1;
             // 
             // pbMapa
@@ -326,7 +326,7 @@
             this.tpArvore.Controls.Add(this.pbArvore);
             this.tpArvore.Location = new System.Drawing.Point(4, 22);
             this.tpArvore.Name = "tpArvore";
-            this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
+            this.tpArvore.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tpArvore.Size = new System.Drawing.Size(1318, 525);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Árvore de Cidades";

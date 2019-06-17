@@ -20,13 +20,11 @@ class CalculadoraDeRotas
 
     public List<List<CaminhoEntreCidades>> Calcular(int origem, int destino)
     {
+        PilhaLista<CaminhoEntreCidades> pilha = new PilhaLista<CaminhoEntreCidades>();
         List<List<CaminhoEntreCidades>> ret = new List<List<CaminhoEntreCidades>>();
+        bool[] passouCidade = new bool[qtdCidades];
         int cidadeAtual = origem;
         int saidaAtual = 0;
-
-        bool[] passouCidade = new bool[qtdCidades];
-
-        PilhaLista<CaminhoEntreCidades> pilha = new PilhaLista<CaminhoEntreCidades>();
 
         while (!(cidadeAtual == origem && saidaAtual == qtdCidades))
         {
