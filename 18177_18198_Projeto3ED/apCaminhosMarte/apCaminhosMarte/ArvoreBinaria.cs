@@ -1,91 +1,83 @@
-﻿using System;
-using System.Drawing;
+﻿//Amabile Pietrobon Ferreira - 18198
+//Pedro Henrique Marques Renó - 18177
 
+using System;
+using System.Drawing;
 
 class ArvoreBinaria<Dado> where Dado : IComparable<Dado>, IParaArvore //Pode ter menos métodos
 {
     private NoArvore<Dado> raiz, atual, antecessor;
-    private int filhos;
+    private int nos;
 
-    public ArvoreBinaria()
+    public ArvoreBinaria() //Construtor básico
     {
         raiz = atual = antecessor = null;
     }
-    public int Altura
+
+    public int QuantosNos
     {
-        get => AlturaArvore(raiz);
-    }
+        get => nos;
+    } //Retorna a quantidade de nós na árvore
+
     public Dado Buscar(Dado modelo)
     {
-        Dado ret = default(Dado);
+        Dado ret = default(Dado); //Caso nada seja achado, retornaremos o default de Dado
 
-        if (ExisteDado(modelo))
-            return atual.Info;
+        if (ExisteDado(modelo)) //Procuraremos se o dado existe
+            return atual.Info; //Se sim, retornaremos o dado que achamos
 
         return ret;
     }
+
     public bool ExisteDado(Dado procurado)
     {
+        //Inicializando as variáveis
         antecessor = null;
         atual = raiz;
-        while (atual != null)
+
+        while (atual != null) //Enquanto não passamos das folhas
         {
-            if (atual.Info.CompareTo(procurado) == 0)
+            if (atual.Info.CompareTo(procurado) == 0) //Retornaremos verdadeiro caso achamos
                 return true;
             else
             {
-                antecessor = atual;
-                if (procurado.CompareTo(atual.Info) < 0)
+                antecessor = atual; //Antecessor armazenará o antigo valor de atual
+
+                if (procurado.CompareTo(atual.Info) < 0) //Caso atual seja maior
                     atual = atual.Esq;     // Desloca à esquerda
-                else
+                else //Caso atual seja menor
                     atual = atual.Dir;      // Desloca à direita
             }
         }
         return false;       // Se atual == null, a chave não existe
     }
+
     public void Incluir(Dado dadoLido)
     {
-        if (ExisteDado(dadoLido))
-            throw new Exception("Dado já existente");
+        if (ExisteDado(dadoLido)) //Caso o dado já exista
+            throw new Exception("Dado já existente"); //Avisaremos o programa
 
-        NoArvore<Dado> novoNo = new NoArvore<Dado>(dadoLido);
-        if (raiz == null)
-            raiz = novoNo;
+        NoArvore<Dado> novoNo = new NoArvore<Dado>(dadoLido); //Criaremos o nó que será inserido
+
+        if (raiz == null) //Caso não haja nós
+            raiz = novoNo; //O novo nó se tornará um raiz
         else
-          if (dadoLido.CompareTo(antecessor.Info) < 0)
-            antecessor.Esq = novoNo;
-        else
-            antecessor.Dir = novoNo;
-        filhos++;
-    }
-    private int AlturaArvore(NoArvore<Dado> atual) //Perguntar depois sobre balanceada
-    {
-        int alturaDireita, alturaEsquerda, result;
-        if (atual != null)
         {
-            alturaDireita = 1 + AlturaArvore(atual.Dir);
-            alturaEsquerda = 1 + AlturaArvore(atual.Esq);
-
-            if (alturaDireita > alturaEsquerda)
-                result = alturaDireita;
+            //Verificaremos qual lado do antecessor o nó deve ser colocado e assim faremos
+            if (dadoLido.CompareTo(antecessor.Info) < 0)
+                antecessor.Esq = novoNo;
             else
-                result = alturaEsquerda;
+                antecessor.Dir = novoNo;
         }
-        else
-            result = 0;
 
-        return result;
-    }
-
-    public int QuantosFilhos
-    {
-        get => filhos;
+        nos++; //Mostraremos que a quantidade de nós aumentou
     }
 
     public void DesenharArvore(Graphics g, int largura)
     {
         DesenharArvore(raiz, largura/2 , 0, Math.PI / 2, Math.PI / 2.5, 300, g);
     }
+
     private void DesenharArvore(NoArvore<Dado> atual,
                                int x, int y, double angulo, double incremento,
                                double comprimento, Graphics g)
@@ -118,13 +110,14 @@ class ArvoreBinaria<Dado> where Dado : IComparable<Dado>, IParaArvore //Pode ter
 
     public void ExecutaEmTodos(Action<Dado> metodo)
     {
-        ExecutaEmTodos(raiz, metodo);
+        ExecutaEmTodos(raiz, metodo); //Executaremos um dado método em todos os nós
     }
 
     private void ExecutaEmTodos(NoArvore<Dado> atual, Action<Dado> metodo)
     {
-        if (atual != null)
+        if (atual != null) //Verificaremos se estamos trabalhando com um nó de fato
         {
+            //Executaremos o método de modo ordenado
             ExecutaEmTodos(atual.Esq, metodo);
             metodo(atual.Info);
             ExecutaEmTodos(atual.Dir, metodo);

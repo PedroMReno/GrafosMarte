@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Amabile Pietrobon Ferreira - 18198
+//Pedro Henrique Marques Renó - 18177
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -149,11 +152,11 @@ namespace apCaminhosMarte
             LerDeArquivo(true); // chama o metodo de leitura de arquivo
 
             dlgAbrir.Title = "Ler caminhos de: "; // coloca outro titulo no mesmo dialog
-            caminhos = new CaminhoEntreCidades[cidades.QuantosFilhos, cidades.QuantosFilhos]; //instancia a matriz com a quiantidade de elementos da arvore
+            caminhos = new CaminhoEntreCidades[cidades.QuantosNos, cidades.QuantosNos]; //instancia a matriz com a quiantidade de elementos da arvore
 
             LerDeArquivo(false); //chama o metodo de leitura de arquivo
 
-            calc = new CalculadoraDeRotas(cidades.QuantosFilhos, caminhos); //instancia a calculadora de rotas com os caminhos e a quantidade de elementos da arvore
+            calc = new CalculadoraDeRotas(cidades.QuantosNos, caminhos); //instancia a calculadora de rotas com os caminhos e a quantidade de elementos da arvore
             rotaSelecionada = new List<Cidade>(); // instancia a rota selecionada
 
             cidades.ExecutaEmTodos((Cidade c) => //chama o metodo da arvore que recebe uma funcao como parametro e excutara essa funcao em todos os nos da arvore
@@ -249,8 +252,9 @@ namespace apCaminhosMarte
                 if (dgv[i, linha].Value == null)
                     break;
 
-                string mostrando = dgv[i, 0].Value.ToString(); // guarda o ID da cidade 
-                Cidade lida = cidades.Buscar(new Cidade(int.Parse(mostrando.Substring(0, mostrando.IndexOf('-'))))); // armazena o retorno da busca na arvore
+                string mostrando = dgv[i, linha].Value.ToString(); // guarda o ID da cidade 
+                Cidade busca = new Cidade(int.Parse(mostrando.Substring(0, mostrando.IndexOf('-')))); // instanciando a cidade a buscar
+                Cidade lida = cidades.Buscar(busca); // armazena o retorno da busca na arvore
                 rotaSelecionada.Add(lida); // adiciona a cidade na rota
             }
         }

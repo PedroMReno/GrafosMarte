@@ -92,7 +92,7 @@
             this.tpRotas.Controls.Add(this.pbMapa);
             this.tpRotas.Location = new System.Drawing.Point(4, 22);
             this.tpRotas.Name = "tpRotas";
-            this.tpRotas.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpRotas.Padding = new System.Windows.Forms.Padding(3);
             this.tpRotas.Size = new System.Drawing.Size(1318, 525);
             this.tpRotas.TabIndex = 0;
             this.tpRotas.Text = "Rotas entre cidades";
@@ -101,7 +101,7 @@
             // btnBuscar
             // 
             this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBuscar.Location = new System.Drawing.Point(1221, 190);
+            this.btnBuscar.Location = new System.Drawing.Point(1221, 174);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(89, 23);
             this.btnBuscar.TabIndex = 11;
@@ -326,7 +326,7 @@
             this.tpArvore.Controls.Add(this.pbArvore);
             this.tpArvore.Location = new System.Drawing.Point(4, 22);
             this.tpArvore.Name = "tpArvore";
-            this.tpArvore.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
             this.tpArvore.Size = new System.Drawing.Size(1318, 525);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Árvore de Cidades";
