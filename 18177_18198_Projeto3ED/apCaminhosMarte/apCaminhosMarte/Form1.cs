@@ -47,12 +47,12 @@ namespace apCaminhosMarte
                 //Lista de armazenamento de todos os caminhos para que seja alcancado o destino desejado
                 List<List<CaminhoEntreCidades>> rotas = calc.Calcular(lsbOrigem.SelectedIndex, lsbDestino.SelectedIndex);
                 rotaSelecionada = new List<Cidade>(); //Instaciacao da rota selecionada
+                dgvCaminhos.RowCount = 0; // zerando as linhas do grid
+                dgvCaminhos.ColumnCount = 0; // zerando as colunas do grid
 
                 if (rotas.Count > 0)
                 {
                     List<CaminhoEntreCidades> melhorCaminho = new List<CaminhoEntreCidades>(); //Lista de cidades componentes do menor caminho encontrado
-                    dgvCaminhos.RowCount = 0; // zerando as linhas do grid
-                    dgvCaminhos.ColumnCount = 0; // zerando as colunas do grid
 
                     dgvMelhorCaminho.ColumnCount = 1; // iniciando o grid que armazena o melhor caminho
                     dgvMelhorCaminho.RowCount = 1;
